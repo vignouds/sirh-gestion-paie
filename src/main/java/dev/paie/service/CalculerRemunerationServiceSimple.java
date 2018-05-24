@@ -51,10 +51,19 @@ public class CalculerRemunerationServiceSimple implements CalculerRemunerationSe
 		String totalCotisPatronalesString = paieUtils.formaterBigDecimal(totalCotisPatronales);
 		resultat.setTotalCotisationsPatronales(totalCotisPatronalesString);
 
-		// NET_IMPOSABLE = SALAIRE_BRUT - TOTAL_RETENUE_SALARIALE
-		//
-		// NET_A_PAYER = NET_IMPOSABLE -
-		// SOMME(COTISATION_IMPOSABLE.TAUX_SALARIAL*SALAIRE_BRUT)
+		// Net imposable
+		BigDecimal netImposable = new BigDecimal(salaireBrutString)
+				.subtract(new BigDecimal(totalRetenueSalarialeString));
+		String netImposableString = paieUtils.formaterBigDecimal(netImposable);
+		resultat.setNetImposable(netImposableString);
+		// Net à payer
+		List<Cotisation> cotisationsImposables = bulletin.getRemunerationEmploye().getProfilRemuneration()
+				.getCotisationsImposables();
+		BigDecimal sommeCot = cotisationsImposables.stream().filter(cotis -> cotis.getTauxSalarial() != null)
+				.map(cotis -> cotis.getTauxSalarial().multiply(salaireBrut)).reduce(BigDecimal::add).get();
+		BigDecimal netAPayer = netImposable.subtract(sommeCot);
+		String netAPayerString = paieUtils.formaterBigDecimal(netAPayer);
+		resultat.setNetAPayer(netAPayerString);
 
 		return resultat;
 	}
