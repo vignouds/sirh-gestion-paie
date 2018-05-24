@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @ImportResource("jdd-config.xml")
-@ComponentScan("dev.paie.service")
+@ComponentScan({"dev.paie.service", "dev.paie.util"})
 public class ServicesConfig {
 
 }
