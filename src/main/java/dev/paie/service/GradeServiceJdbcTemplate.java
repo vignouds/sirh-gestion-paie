@@ -33,7 +33,7 @@ public class GradeServiceJdbcTemplate implements GradeService {
 
 	@Override
 	public void mettreAJour(Grade grade) {
-		String sql = "UPDATE grade SET nbHeuresBase = ? WHERE id = ?";
+		String sql = "UPDATE grade SET code = ? WHERE id = ?";
 		BigDecimal newVal = new BigDecimal("100");
 		jdbcTemplate.update(sql, newVal, grade.getId());
 	}
