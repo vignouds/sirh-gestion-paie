@@ -15,21 +15,24 @@ import dev.paie.entite.ResultatCalculRemuneration;
 
 //Sélection des classes de configuration Spring à utiliser lors du test
 @ContextConfiguration(classes = { ServicesConfig.class })
-//Configuration JUnit pour que Spring prenne la main sur le cycle de vie du test
+// Configuration JUnit pour que Spring prenne la main sur le cycle de vie du
+// test
 @RunWith(SpringRunner.class)
 
 public class CalculerRemunerationServiceSimpleTest {
-    @Autowired private CalculerRemunerationService remunerationService;
+	@Autowired
+	private CalculerRemunerationService remunerationService;
 
-    @Autowired private BulletinSalaire bulletin1;
-    
-    @Test
-    public void test_calculer() {
-        ResultatCalculRemuneration resultat = remunerationService.calculer(bulletin1);
-        assertThat(resultat.getSalaireBrut(), equalTo("2683.30"));
-        assertThat(resultat.getTotalRetenueSalarial(), equalTo("517.08"));
-        assertThat(resultat.getTotalCotisationsPatronales(), equalTo("1096.13"));
-        assertThat(resultat.getNetImposable(), equalTo("2166.22"));
-        assertThat(resultat.getNetAPayer(), equalTo("2088.41"));
-    }
+	@Autowired
+	private BulletinSalaire bulletin1;
+
+	@Test
+	public void test_calculer() {
+		ResultatCalculRemuneration resultat = remunerationService.calculer(bulletin1);
+		assertThat(resultat.getSalaireBrut(), equalTo("2683.30"));
+		assertThat(resultat.getTotalRetenueSalarial(), equalTo("517.08"));
+		assertThat(resultat.getTotalCotisationsPatronales(), equalTo("1096.13"));
+		assertThat(resultat.getNetImposable(), equalTo("2166.22"));
+		assertThat(resultat.getNetAPayer(), equalTo("2088.41"));
+	}
 }
