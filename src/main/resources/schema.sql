@@ -1,0 +1,7 @@
+CREATE TABLE grade (
+  id INT(11) NOT NULL,
+  code VARCHAR(255) DEFAULT NULL,
+  nbHeuresBase DECIMAL(10, 0) DEFAULT NULL,
+  tauxBase DECIMAL(10, 0) DEFAULT NULL,
+  PRIMARY KEY (id)
+);
