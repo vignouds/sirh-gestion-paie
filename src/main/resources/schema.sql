@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS grade;
 DROP TABLE IF EXISTS cotisation;
-DROP TABLE IF EXISTS avantage;
 
 CREATE TABLE grade (
   id INT(11) NOT NULL,
