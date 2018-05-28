@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "profile_remuneration")
@@ -25,10 +24,12 @@ public class ProfilRemuneration {
 	@Column(name = "CODE")
 	private String code;
 
-	@Transient
+	@ManyToMany
+	@JoinTable(name = "PRO_COTI", joinColumns = @JoinColumn(name = "ID_PRO", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ID_COTI", referencedColumnName = "id"))
 	private List<Cotisation> cotisationsNonImposables;
 
-	@Transient
+	@ManyToMany
+	@JoinTable(name = "PRO_COTNOI", joinColumns = @JoinColumn(name = "ID_PRO", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ID_COTNOI", referencedColumnName = "id"))
 	private List<Cotisation> cotisationsImposables;
 
 	@ManyToMany
