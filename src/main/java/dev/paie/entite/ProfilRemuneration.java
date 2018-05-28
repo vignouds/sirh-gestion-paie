@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -28,7 +31,8 @@ public class ProfilRemuneration {
 	@Transient
 	private List<Cotisation> cotisationsImposables;
 
-	@Transient
+	@ManyToMany
+	@JoinTable(name = "PRO_AVA", joinColumns = @JoinColumn(name = "ID_PRO", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ID_AVA", referencedColumnName = "id"))
 	private List<Avantage> avantages;
 
 	public Integer getId() {

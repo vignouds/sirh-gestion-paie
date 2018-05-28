@@ -61,8 +61,8 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 			periode.setDateDebut(debut);
 			periode.setDateFin(debut.with(lastDayOfMonth()));
 			periodes.add(periode);
-
 		}
+
 		for (Periode periode : periodes) {
 			em.persist(periode);
 		}
