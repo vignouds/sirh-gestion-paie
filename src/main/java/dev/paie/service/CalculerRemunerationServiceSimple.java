@@ -20,10 +20,12 @@ import dev.paie.util.PaieUtils;
 public class CalculerRemunerationServiceSimple implements CalculerRemunerationService {
 
 	@Autowired
-	PaieUtils paieUtils;
+	private PaieUtils paieUtils;
+
 	@Autowired
 	private BulletinSalaireRepository bulletinSalaireRepository;
 
+	@Override
 	public Map<BulletinSalaire, ResultatCalculRemuneration> bulletinCalcul() {
 		Map<BulletinSalaire, ResultatCalculRemuneration> result = new HashMap<BulletinSalaire, ResultatCalculRemuneration>();
 

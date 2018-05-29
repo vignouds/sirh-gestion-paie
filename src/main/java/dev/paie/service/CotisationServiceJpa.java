@@ -12,18 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 import dev.paie.entite.Cotisation;
 
 @Service
-@Transactional
 public class CotisationServiceJpa implements CotisationService {
 
 	@PersistenceContext
 	private EntityManager em;
 
 	@Override
+	@Transactional
 	public void sauvegarder(Cotisation nouvelleCotisation) {
 		em.persist(nouvelleCotisation);
 	}
 
 	@Override
+	@Transactional
 	public void mettreAJour(Cotisation cotisation) {
 		Cotisation cotisation1 = em.find(Cotisation.class, cotisation.getId());
 		if (cotisation != null) {
@@ -32,9 +33,17 @@ public class CotisationServiceJpa implements CotisationService {
 	}
 
 	@Override
+	@Transactional
 	public List<Cotisation> lister() {
 		Query query = em.createQuery("from Cotisation");
 		List<Cotisation> cotisations = query.getResultList();
 		return cotisations;
+	}
+
+	@Override
+	@Transactional
+	public void supprimer() {
+		em.createQuery("DELETE FROM Cotisation").executeUpdate();
+
 	}
 }

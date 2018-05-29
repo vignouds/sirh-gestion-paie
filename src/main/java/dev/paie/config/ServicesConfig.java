@@ -7,9 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-
 @ComponentScan({ "dev.paie.service", "dev.paie.util" })
-@Import({ JpaConfig.class, DataSourceMySQLConfig.class })
+@Import({ JpaConfig.class, H2Config.class })
 
 @EnableTransactionManagement
 @EnableJpaRepositories("dev.paie.repository")
