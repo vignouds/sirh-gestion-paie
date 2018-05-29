@@ -76,4 +76,8 @@ public class ProfilRemuneration {
 		this.avantages = avantages;
 	}
 
+	public String toString() {
+		return code;
+	}
+
 }

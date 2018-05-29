@@ -12,8 +12,9 @@
 	crossorigin="anonymous">
 <title>Ajouter un employé</title>
 </head>
-<div class="container-fluid">
-	<h4>Ajouter un employé</h4>
+<body>
+<div class="container">
+	<h4 class="text-center">Ajouter un employé</h4>
 </div>
 
 <div class="container">
@@ -27,19 +28,19 @@
 		<div class="form-group row">
 			<label for="matricule" class="col-form-label col-4">Entreprise</label>
 			<div class="col-8 pr-0">
-				<form:select path="entreprise" items="${entreprises}" id="entreprise" class="form-control"></form:select>
+				<form:select path="entreprise.id" items="${entreprises}" itemValue="id" id="entreprise" class="form-control"></form:select>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="profilRemuneration" class="col-form-label col-4">Profil de rémuneration</label>
 			<div class="col-8 pr-0">
-				<form:select path="profilRemuneration" items="${profils}" id="profilRemuneration" class="form-control"></form:select>
+				<form:select path="profilRemuneration.id" items="${profils}" itemValue="id" id="profilRemuneration" class="form-control"></form:select>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="grade" class="col-form-label col-4">Grade</label>
 			<div class="col-8 pr-0">
-				<form:select path="grade" items="${grades}" id="grade" class="form-control"></form:select>
+				<form:select path="grade.id" items="${grades}" itemValue="id" id="grade" class="form-control"></form:select>
 			</div>
 		</div>
 		<div class="row">

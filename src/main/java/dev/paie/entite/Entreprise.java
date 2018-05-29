@@ -74,4 +74,7 @@ public class Entreprise {
 		this.id = id;
 	}
 
+	public String toString() {
+		return denomination;
+	}
 }
