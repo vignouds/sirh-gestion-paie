@@ -3,10 +3,12 @@ package dev.paie.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import dev.paie.entite.BulletinSalaire;
+import dev.paie.repository.BulletinSalaireRepository;
 import dev.paie.repository.PeriodeRepository;
 import dev.paie.repository.RemunerationEmployeRepository;
 
@@ -16,9 +18,10 @@ public class BulletinSalaireController {
 
 	@Autowired
 	PeriodeRepository pRepo;
-
 	@Autowired
 	RemunerationEmployeRepository reRepo;
+	@Autowired
+	BulletinSalaireRepository bsRepo;
 
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
 	public String creerBulletin(Model model) {
@@ -32,4 +35,16 @@ public class BulletinSalaireController {
 		return "bulletins/creerBulletin";
 	}
 
+	@RequestMapping(method = RequestMethod.POST, path = "/creer")
+	public String submitForm(@ModelAttribute("bulletin") BulletinSalaire bulletinSalaire) {
+
+		bsRepo.save(bulletinSalaire);
+		return "redirect:/mvc/bulletins/lister";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/lister")
+	public String listerBulletin(Model model) {
+
+		return "bulletins/listerBulletin";
+	}
 }

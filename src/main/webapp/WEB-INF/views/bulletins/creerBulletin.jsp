@@ -22,13 +22,13 @@
 		<div class="form-group row">
 			<label for="periode" class="col-form-label col-4">Période</label>
 			<div class="col-8 pr-0">
-				<form:select path="periode.id" items="${periodes}" id="periode" class="form-control"/>
+				<form:select path="periode.id" items="${periodes}" itemValue="id" id="periode" class="form-control"/>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="matricule" class="col-form-label col-4">Matricule</label>
 			<div class="col-8 pr-0">
-				<form:select path="remunerationEmploye.matricule" items="${remunerations}" itemLabel="matricule" id="matricule" class="form-control"/>
+				<form:select path="remunerationEmploye.id" items="${remunerations}" itemValue="id" itemLabel="matricule" id="matricule" class="form-control"/>
 			</div>
 		</div> 
 		<div class="form-group row">
