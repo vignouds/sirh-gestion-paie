@@ -26,7 +26,7 @@ public class CotisationApiController {
 	}
 
 	@RequestMapping(value = "/{cotisationCode}", method = RequestMethod.GET)
-	public Cotisation findCotisationByCode(@PathVariable String cotisationCode) throws Exception {
+	public Cotisation findCotisationByCode(@PathVariable String cotisationCode) throws ItemNotFoundException {
 
 		if (cRepo.findByCode(cotisationCode) == null) {
 			throw new ItemNotFoundException();
@@ -37,10 +37,13 @@ public class CotisationApiController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void insertCotisation(@RequestBody Cotisation cotisation) {
-		this.cRepo.save(cotisation);
+		cRepo.save(cotisation);
 	}
 
-	// Methode PUT
-
+	@RequestMapping(value = "/{cotisationCode}", method = RequestMethod.PUT)
+	public void majCotisation(@PathVariable String cotisationCode, @RequestBody Cotisation cotisation) {
+		cotisation.setId(cRepo.findByCode(cotisationCode).getId());
+		cRepo.save(cotisation);
+	}
 	// Methode DELETE
 }
