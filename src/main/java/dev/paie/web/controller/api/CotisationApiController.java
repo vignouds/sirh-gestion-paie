@@ -3,6 +3,7 @@ package dev.paie.web.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,9 +42,25 @@ public class CotisationApiController {
 	}
 
 	@RequestMapping(value = "/{cotisationCode}", method = RequestMethod.PUT)
-	public void majCotisation(@PathVariable String cotisationCode, @RequestBody Cotisation cotisation) {
+	public void majCotisation(@PathVariable String cotisationCode, @RequestBody Cotisation cotisation)
+			throws ItemNotFoundException {
+
+		if (cRepo.findByCode(cotisationCode) == null) {
+			throw new ItemNotFoundException();
+		}
+
 		cotisation.setId(cRepo.findByCode(cotisationCode).getId());
 		cRepo.save(cotisation);
 	}
-	// Methode DELETE
+
+	@RequestMapping(value = "/{cotisationCode}", method = RequestMethod.DELETE)
+	public void deleteCotisation(@PathVariable String cotisationCode)
+			throws ItemNotFoundException, DataIntegrityViolationException {
+
+		if (cRepo.findByCode(cotisationCode) == null) {
+			throw new ItemNotFoundException();
+		}
+
+		cRepo.delete(cRepo.findByCode(cotisationCode));
+	}
 }
