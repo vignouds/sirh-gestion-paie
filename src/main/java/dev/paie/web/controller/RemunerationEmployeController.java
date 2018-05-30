@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import dev.paie.entite.Entreprise;
-import dev.paie.entite.Grade;
-import dev.paie.entite.ProfilRemuneration;
 import dev.paie.entite.RemunerationEmploye;
 import dev.paie.repository.EntrepriseRepository;
 import dev.paie.repository.GradeRepository;
@@ -36,15 +33,9 @@ public class RemunerationEmployeController {
 	public String creerEmploye(Model model) {
 		RemunerationEmploye remuneration = new RemunerationEmploye();
 		model.addAttribute("remuneration", remuneration);
-
-		List<Entreprise> entreprises = eRepo.findAll();
-		model.addAttribute("entreprises", entreprises);
-
-		List<ProfilRemuneration> profils = prRepo.findAll();
-		model.addAttribute("profils", profils);
-
-		List<Grade> grades = gRepo.findAll();
-		model.addAttribute("grades", grades);
+		model.addAttribute("entreprises", eRepo.findAll());
+		model.addAttribute("profils", prRepo.findAll());
+		model.addAttribute("grades", gRepo.findAll());
 
 		return "employes/creerEmploye";
 	}

@@ -3,8 +3,8 @@ package dev.paie.service;
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,46 +26,21 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 	@PersistenceContext
 	private EntityManager em;
 
-	private ClassPathXmlApplicationContext context;
-
 	@Override
 	public void initialiser() {
-		context = new ClassPathXmlApplicationContext("cotisations-imposables.xml", "cotisations-non-imposables.xml",
-				"entreprises.xml", "grades.xml", "profils-remuneration.xml");
 
-		Collection<Cotisation> cotisations = context.getBeansOfType(Cotisation.class).values();
-		for (Cotisation cotisation : cotisations) {
-			em.persist(cotisation);
-		}
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("cotisations-imposables.xml",
+				"cotisations-non-imposables.xml", "entreprises.xml", "grades.xml", "profils-remuneration.xml")) {
 
-		Collection<Entreprise> entreprises = context.getBeansOfType(Entreprise.class).values();
-		for (Entreprise entreprise : entreprises) {
-			em.persist(entreprise);
-		}
+			Stream.of(Cotisation.class, Entreprise.class, Grade.class, ProfilRemuneration.class)
+					.flatMap(classe -> context.getBeansOfType(classe).values().stream()).forEach(em::persist);
 
-		Collection<Grade> grades = context.getBeansOfType(Grade.class).values();
-		for (Grade grade : grades) {
-			em.persist(grade);
-		}
-
-		Collection<ProfilRemuneration> profils = context.getBeansOfType(ProfilRemuneration.class).values();
-		for (ProfilRemuneration profilRemuneration : profils) {
-			em.persist(profilRemuneration);
-		}
-
-		ArrayList<Periode> periodes = new ArrayList<>();
-		int currentYear = LocalDate.now().getYear();
-		for (int i = 1; i <= 12; i++) {
-			Periode periode = new Periode();
-			LocalDate debut = LocalDate.of(currentYear, i, 1);
-			periode.setDateDebut(debut);
-			periode.setDateFin(debut.with(lastDayOfMonth()));
-			periodes.add(periode);
-		}
-
-		for (Periode periode : periodes) {
-			em.persist(periode);
+			IntStream.rangeClosed(1, 12).mapToObj(i -> {
+				Periode periode = new Periode();
+				periode.setDateDebut(LocalDate.of(LocalDate.now().getYear(), i, 1));
+				periode.setDateFin(periode.getDateDebut().with(lastDayOfMonth()));
+				return periode;
+			}).forEach(em::persist);
 		}
 	}
-
 }
