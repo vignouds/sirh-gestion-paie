@@ -1,6 +1,7 @@
 package dev.paie.web.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 
-import dev.paie.entite.Entreprise;
-import dev.paie.entite.Grade;
-import dev.paie.entite.ProfilRemuneration;
+import dev.paie.entite.Collegue;
 import dev.paie.entite.RemunerationEmploye;
 import dev.paie.repository.EntrepriseRepository;
 import dev.paie.repository.GradeRepository;
@@ -36,15 +36,18 @@ public class RemunerationEmployeController {
 	public String creerEmploye(Model model) {
 		RemunerationEmploye remuneration = new RemunerationEmploye();
 		model.addAttribute("remuneration", remuneration);
+		model.addAttribute("entreprises", eRepo.findAll());
+		model.addAttribute("profils", prRepo.findAll());
+		model.addAttribute("grades", gRepo.findAll());
 
-		List<Entreprise> entreprises = eRepo.findAll();
-		model.addAttribute("entreprises", entreprises);
+		RestTemplate rt = new RestTemplate();
+		Collegue[] result = rt.getForObject("http://collegues-api.cleverapps.io/collegues", Collegue[].class);
+		ArrayList<String> matricules = new ArrayList<>();
+		for (Collegue collegue : result) {
+			matricules.add(collegue.getMatricule());
+		}
 
-		List<ProfilRemuneration> profils = prRepo.findAll();
-		model.addAttribute("profils", profils);
-
-		List<Grade> grades = gRepo.findAll();
-		model.addAttribute("grades", grades);
+		model.addAttribute("matricules", matricules);
 
 		return "employes/creerEmploye";
 	}
