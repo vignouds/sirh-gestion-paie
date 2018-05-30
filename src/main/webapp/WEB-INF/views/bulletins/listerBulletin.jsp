@@ -43,7 +43,7 @@
  			<td>${bulletin.value.salaireBrut}</td>
  			<td>${bulletin.value.netImposable}</td>
  			<td>${bulletin.value.netAPayer}</td>
- 			<td>Visualiser</td>
+ 			<td><a href="<c:url value='/mvc/bulletins/afficher?id=${bulletin.key.id}' />" class="text-dark">Visualiser</a></td>
 		</tr>
 	</c:forEach>
 	</tbody>
