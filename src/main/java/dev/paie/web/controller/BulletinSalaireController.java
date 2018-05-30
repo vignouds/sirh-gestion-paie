@@ -54,4 +54,10 @@ public class BulletinSalaireController {
 		model.addAttribute("bulletins", remunerationService.bulletinCalcul());
 		return "bulletins/listerBulletin";
 	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/afficher")
+	public String afficherBulletin(Model model) {
+
+		return "bulletins/afficherBulletin";
+	}
 }
