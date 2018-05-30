@@ -22,7 +22,7 @@
 		<div class="form-group row">
 			<label for="matricule" class="col-form-label col-4">Matricule</label>
 			<div class="col-8 pr-0">
-				<form:input path="matricule" id="matricule" class="form-control"/>
+				<form:select path="matricule" items="${matricules}" id="matricule" class="form-control"></form:select>
 			</div>
 		</div>
 		<div class="form-group row">
