@@ -1,9 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,44 +10,81 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
 	crossorigin="anonymous">
-<title>Liste des bulletins</title>
+<title>Bulletin de salaire</title>
 </head>
 <body>
 <div class="container">
-	<h4 class="text-center">Liste des bulletins</h4>
-</div>
-<div class="container text-right">
-	<button ><a href="<c:url value='/mvc/bulletins/creer' />" class="text-dark">Créer un nouveau bulletin</a></button>
+	<h4 class="text-center">Bulletin de salaire</h4>
 </div>
 <div class="container">
+	<div class="row">
+		<div class="col-8">
+		<p>Entreprise</p>
+		<p></p>
+		<p>SIRET :</p>
+		</div>
+		<div class="col-4">
+			<p class="text-right">P�riode</p>
+			<p class="text-right"></p>
+			<p class="text-right">Matricule</p>
+		</div>
+	</div>
+</div>
+<div class="container">
+<p>Salaire</p>
 <table class="table table-sm table-striped table-bordered">
 	<thead>
 		<tr>
-			<th>Date/heure création</th>
-			<th>Période</th>
-			<th>Matricule</th>
-			<th>Salaire brut</th>
-			<th>Net Imposable</th>
-			<th>Net A Payer</th>
-			<th>Actions</th>
+			<th>Rubriques</th>
+			<th>Base</th>
+			<th>Taux Salarial</th>
+			<th>Montant Salarial</th>
+			<th>Taux Patronal</th>
+			<th>Cot. patronales</th>
 		</tr>
 	</thead>
 	<tbody>
-
-	<c:forEach var="bulletin" items="${bulletins}">
-		<tr>
-			<td>${bulletin.key.heureCreationFormat}</td>
-			<td>${bulletin.key.periode}</td>
- 			<td>${bulletin.key.remunerationEmploye.matricule}</td>
- 			<td>${bulletin.value.salaireBrut}</td>
- 			<td>${bulletin.value.netImposable}</td>
- 			<td>${bulletin.value.netAPayer}</td>
- 			<td><a href="<c:url value='/mvc/bulletins/afficher?id=${bulletin.key.id}' />" class="text-dark">Visualiser</a></td>
-		</tr>
-	</c:forEach>
 	</tbody>
 </table>
 </div>
+<div class="container">
+<p>Cotisations</p>
+<table class="table table-sm table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>Rubriques</th>
+			<th>Base</th>
+			<th>Taux Salarial</th>
+			<th>Montant Salarial</th>
+			<th>Taux Patronal</th>
+			<th>Cot. patronales</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+</div>
+<div class="container">
+<p>Net Imposable :</p>
+<table class="table table-sm table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>Rubriques</th>
+			<th>Base</th>
+			<th>Taux Salarial</th>
+			<th>Montant Salarial</th>
+			<th>Taux Patronal</th>
+			<th>Cot. patronales</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+</div>
+<div class="container">
+<p class="text-right">NET A PAYER :</p>
+</div>
+
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
