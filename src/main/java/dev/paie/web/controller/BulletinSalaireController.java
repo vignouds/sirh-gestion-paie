@@ -3,6 +3,7 @@ package dev.paie.web.controller;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +30,7 @@ public class BulletinSalaireController {
 	CalculerRemunerationService remunerationService;
 
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public String creerBulletin(Model model) {
 		BulletinSalaire bulletinSalaire = new BulletinSalaire();
 		model.addAttribute("bulletin", bulletinSalaire);
@@ -41,6 +43,7 @@ public class BulletinSalaireController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public String submitForm(@ModelAttribute("bulletin") BulletinSalaire bulletinSalaire) {
 		bulletinSalaire.setHeureCreation(LocalDateTime.now());
 		bulletinSalaire.setHeureCreationFormat();
@@ -49,6 +52,7 @@ public class BulletinSalaireController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/lister")
+	@Secured({ "ROLE_UTILISATEUR", "ROLE_ADMINISTRATEUR" })
 	public String listerBulletin(Model model) {
 
 		model.addAttribute("bulletins", remunerationService.bulletinCalcul());
@@ -56,6 +60,7 @@ public class BulletinSalaireController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/afficher")
+	@Secured({ "ROLE_UTILISATEUR", "ROLE_ADMINISTRATEUR" })
 	public String afficherBulletin(Model model) {
 		model.addAttribute("bulletins", remunerationService.bulletinCalcul());
 		return "bulletins/afficherBulletin";

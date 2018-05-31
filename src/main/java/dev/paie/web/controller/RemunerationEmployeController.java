@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,6 +34,7 @@ public class RemunerationEmployeController {
 	RemunerationEmployeRepository reRepo;
 
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public String creerEmploye(Model model) {
 		RemunerationEmploye remuneration = new RemunerationEmploye();
 		model.addAttribute("remuneration", remuneration);
@@ -53,6 +55,7 @@ public class RemunerationEmployeController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public String submitForm(@ModelAttribute("remuneration") RemunerationEmploye remuneration) {
 		remuneration.setHeureCreation(LocalDateTime.now());
 		remuneration.setHeureCreationFormat();
@@ -61,6 +64,7 @@ public class RemunerationEmployeController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/lister")
+	@Secured({ "ROLE_UTILISATEUR", "ROLE_ADMINISTRATEUR" })
 	public String listerEmploye(Model model) {
 		List<RemunerationEmploye> remunerations = reRepo.findAll();
 		model.addAttribute("remunerations", remunerations);
